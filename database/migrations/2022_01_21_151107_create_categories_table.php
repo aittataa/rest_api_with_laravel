@@ -13,18 +13,18 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_categories', function (Blueprint $table) {
-            //$table->id();
-            $table->increments("id_category");
-            $table->string("category_name", 100);
-            $table->text("category_image", 100);
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            //$table->increments("id_category");
+            $table->string("category_name", 250);
+            $table->text("category_image");
             $table->tinyInteger("category_status")->default(1);
-            // $table->timestamp();
-            // $table->softDeletes();
+            $table->timestamps();
+            $table->softDeletes();
 
-            $table->timestamp("created_at")->useCurrent();
-            $table->timestamp("updated_at")->useCurrent();
-            $table->timestamp("deleted_at")->nullable();
+            // $table->timestamp("created_at")->useCurrent();
+            // $table->timestamp("updated_at")->useCurrent();
+            // $table->timestamp("deleted_at")->nullable();
         });
     }
 
@@ -35,6 +35,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_categories');
+        Schema::dropIfExists('categories');
     }
 }
