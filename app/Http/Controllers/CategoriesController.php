@@ -15,18 +15,15 @@ class CategoriesController extends Controller
         return Categories::all();
     }
 
-
-    public function store(StoreCategoriesRequest $request)
-    {
-        return Categories::create($request->all());
-    }
-
-
     public function show($id)
     {
         return Categories::findOrFail($id);
     }
 
+    public function store(StoreCategoriesRequest $request)
+    {
+       return Categories::create($request->all());
+    }
 
     public function update(UpdateCategoriesRequest $request, $id)
     {
@@ -34,7 +31,6 @@ class CategoriesController extends Controller
         $category->update($request->all());
         return $category;
     }
-
 
     public function destroy(Request $request, $id)
     {
