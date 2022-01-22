@@ -22,7 +22,7 @@ class CategoriesController extends Controller
 
     public function store(StoreCategoriesRequest $request)
     {
-       return Categories::create($request->all());
+        return Categories::create($request->all());
     }
 
     public function update(UpdateCategoriesRequest $request, $id)
