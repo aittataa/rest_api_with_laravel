@@ -8,8 +8,6 @@ use App\Http\Requests\UpdateCategoriesRequest;
 
 class CategoriesController extends Controller
 {
-
-
     public function index()
     {
         return Categories::all();
@@ -32,7 +30,7 @@ class CategoriesController extends Controller
         return $category;
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
         $category = Categories::findOrFail($id);
         $category->delete();
