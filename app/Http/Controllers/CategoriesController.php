@@ -11,19 +11,13 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-        //return CategoriesResource::collection(Categories::paginate());
 
-        //$limit = 10;
-        $categories = CategoriesResource::collection(Categories::paginate(10));
-        //$total = count(Categories::all());
-        //$pages = ceil($total / $limit);
-        //$page_index = Input::has('page');
+        $limit = 10;
+        $categories = CategoriesResource::collection(Categories::paginate($limit));
         return [
             "info" => [
                 "total" => $categories->total(),
-                //"limit" => $categories->count(),
                 "pages" => $categories->lastPage(),
-                //"page" => $categories->currentPage(),
                 "prev" => $categories->previousPageUrl(),
                 "next" => $categories->nextPageUrl(),
             ],
@@ -41,7 +35,7 @@ class CategoriesController extends Controller
             "category_status" => $category->category_status,
             "created_at" => $category->created_at,
             "updated_at" => $category->updated_at,
-            //"deleted_at" => $category->deleted_at,
+            "deleted_at" => $category->deleted_at,
         ];
     }
 
@@ -56,9 +50,8 @@ class CategoriesController extends Controller
             "category_status" => $category->category_status,
             "created_at" => $category->created_at,
             "updated_at" => $category->updated_at,
-            //"deleted_at" => $category->deleted_at,
+            "deleted_at" => $category->deleted_at,
         ];
-        //return new CategoriesResource($category);
     }
 
     public function update(UpdateCategoriesRequest $request, Categories $category)
@@ -72,17 +65,13 @@ class CategoriesController extends Controller
             "category_status" => $category->category_status,
             "created_at" => $category->created_at,
             "updated_at" => $category->updated_at,
-            //"deleted_at" => $category->deleted_at,
+            "deleted_at" => $category->deleted_at,
         ];
-        //return new CategoriesResource($category);
     }
 
     public function destroy(Categories $category)
     {
         $category->delete();
-        return [
-            "message" => "Successfully Deleted",
-        ];
-        //return response("Successfully Deleted");
+        return ["message" => "Successfully Deleted"];
     }
 }
