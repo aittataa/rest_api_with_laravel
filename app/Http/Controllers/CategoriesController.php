@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 use App\Models\Categories;
 use App\Http\Requests\StoreCategoriesRequest;
 use App\Http\Requests\UpdateCategoriesRequest;
@@ -11,7 +13,6 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-
         $limit = 10;
         $categories = CategoriesResource::collection(Categories::paginate($limit));
         return [
@@ -25,7 +26,7 @@ class CategoriesController extends Controller
         ];
     }
 
-    public function show(Categories $category, $id)
+    public function show($id)
     {
         $category = Categories::findOrFail($id);
         return [
@@ -54,9 +55,9 @@ class CategoriesController extends Controller
         ];
     }
 
-    public function update(UpdateCategoriesRequest $request, Categories $category)
+    public function update(UpdateCategoriesRequest $request, $id)
     {
-        $category = Categories::findOrFail($category->id);
+        $category = Categories::findOrFail($id);
         $category->update($request->all());
         return [
             "id" => $category->id,
@@ -69,8 +70,9 @@ class CategoriesController extends Controller
         ];
     }
 
-    public function destroy(Categories $category)
+    public function destroy($id)
     {
+        $category = Categories::findOrFail($id);
         $category->delete();
         return ["message" => "Successfully Deleted"];
     }
