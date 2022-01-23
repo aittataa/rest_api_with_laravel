@@ -9,7 +9,7 @@ class CreateCategoriesTable extends Migration
 
     public function up()
     {
-        Schema::create('tbl_categories', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string("category_name", 250);
             $table->text("category_image");
@@ -21,6 +21,6 @@ class CreateCategoriesTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('tbl_categories');
+        Schema::dropIfExists('categories');
     }
 }

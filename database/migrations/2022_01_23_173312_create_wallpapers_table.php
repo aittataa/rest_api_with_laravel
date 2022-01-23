@@ -14,15 +14,15 @@ class CreateWallpapersTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_wallpapers', function (Blueprint $table) {
+        Schema::create('wallpapers', function (Blueprint $table) {
             $table->id();
             $table->string("wallpaper_image", 250);
             $table->tinyInteger("wallpaper_featured")->default(0);
             $table->string("wallpaper_type", 25)->default("Portrait");
             $table->text("wallpaper_tags")->default("Wallpaper");
-            $table->text("wallpaper_colors");
+            $table->text("wallpaper_colors")->nullable();
             $table->tinyInteger("wallpaper_status")->default(1);
-            $table->foreignIdFor(Categories::class, "category_id");
+            $table->foreignIdFor(Categories::class, "category_id")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -35,6 +35,6 @@ class CreateWallpapersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_wallpapers');
+        Schema::dropIfExists('wallpapers');
     }
 }

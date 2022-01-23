@@ -5,61 +5,85 @@ namespace App\Http\Controllers;
 use App\Models\Wallpapers;
 use App\Http\Requests\StoreWallpapersRequest;
 use App\Http\Requests\UpdateWallpapersRequest;
+use App\Http\Resources\WallpapersResource;
 
 class WallpapersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $limit = 10;
+        $wallpapers = WallpapersResource::collection(Wallpapers::paginate($limit));
+        return [
+            "info" => [
+                "total" => $wallpapers->total(),
+                "pages" => $wallpapers->lastPage(),
+                "prev" => $wallpapers->previousPageUrl(),
+                "next" => $wallpapers->nextPageUrl(),
+            ],
+            "results" => $wallpapers,
+        ];
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreWallpapersRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function show($id)
+    {
+        $wallpaper = Wallpapers::findOrFail($id);
+        return [
+            "id" => $wallpaper->id,
+            "wallpaper_image" => $wallpaper->wallpaper_image,
+            "wallpaper_featured" => $wallpaper->wallpaper_featured,
+            "wallpaper_type" => $wallpaper->wallpaper_type,
+            "wallpaper_tags" => $wallpaper->wallpaper_tags,
+            "wallpaper_colors" => $wallpaper->wallpaper_colors,
+            "wallpaper_status" => $wallpaper->wallpaper_status,
+            "category_id" => $wallpaper->category_id,
+            "created_at" => $wallpaper->created_at,
+            "updated_at" => $wallpaper->updated_at,
+            "deleted_at" => $wallpaper->deleted_at,
+        ];
+    }
+
     public function store(StoreWallpapersRequest $request)
     {
-        //
+        $wallpaper = Wallpapers::create($request->all());
+        $wallpaper = Wallpapers::findOrFail($wallpaper->id);
+        return [
+            "id" => $wallpaper->id,
+            "wallpaper_image" => $wallpaper->wallpaper_image,
+            "wallpaper_featured" => $wallpaper->wallpaper_featured,
+            "wallpaper_type" => $wallpaper->wallpaper_type,
+            "wallpaper_tags" => $wallpaper->wallpaper_tags,
+            "wallpaper_colors" => $wallpaper->wallpaper_colors,
+            "wallpaper_status" => $wallpaper->wallpaper_status,
+            "category_id" => $wallpaper->category_id,
+            "created_at" => $wallpaper->created_at,
+            "updated_at" => $wallpaper->updated_at,
+            "deleted_at" => $wallpaper->deleted_at,
+        ];
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Wallpapers  $wallpapers
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Wallpapers $wallpapers)
+    public function update(UpdateWallpapersRequest $request, $id)
     {
-        //
+        $wallpaper = Wallpapers::findOrFail($id);
+        $wallpaper->update($request->all());
+        return [
+            "id" => $wallpaper->id,
+            "wallpaper_image" => $wallpaper->wallpaper_image,
+            "wallpaper_featured" => $wallpaper->wallpaper_featured,
+            "wallpaper_type" => $wallpaper->wallpaper_type,
+            "wallpaper_tags" => $wallpaper->wallpaper_tags,
+            "wallpaper_colors" => $wallpaper->wallpaper_colors,
+            "wallpaper_status" => $wallpaper->wallpaper_status,
+            "category_id" => $wallpaper->category_id,
+            "created_at" => $wallpaper->created_at,
+            "updated_at" => $wallpaper->updated_at,
+            "deleted_at" => $wallpaper->deleted_at,
+        ];
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateWallpapersRequest  $request
-     * @param  \App\Models\Wallpapers  $wallpapers
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateWallpapersRequest $request, Wallpapers $wallpapers)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Wallpapers  $wallpapers
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Wallpapers $wallpapers)
-    {
-        //
+        $wallpaper = Wallpapers::findOrFail($id);
+        $wallpaper->delete();
+        return ["message" => "Successfully Deleted"];
     }
 }
