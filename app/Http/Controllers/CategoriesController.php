@@ -11,7 +11,24 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-        return CategoriesResource::collection(Categories::all());
+        //return CategoriesResource::collection(Categories::paginate());
+
+        //$limit = 10;
+        $categories = CategoriesResource::collection(Categories::paginate(10));
+        //$total = count(Categories::all());
+        //$pages = ceil($total / $limit);
+        //$page_index = Input::has('page');
+        return [
+            "info" => [
+                "total" => $categories->total(),
+                //"limit" => $categories->count(),
+                "pages" => $categories->lastPage(),
+                //"page" => $categories->currentPage(),
+                "prev" => $categories->previousPageUrl(),
+                "next" => $categories->nextPageUrl(),
+            ],
+            "results" => $categories,
+        ];
     }
 
     public function show(Categories $category, $id)
