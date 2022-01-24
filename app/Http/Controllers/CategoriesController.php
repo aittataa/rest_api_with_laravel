@@ -6,16 +6,17 @@ use App\Models\Categories;
 use App\Http\Requests\StoreCategoriesRequest;
 use App\Http\Requests\UpdateCategoriesRequest;
 use App\Http\Resources\CategoriesResource;
+use App\Http\Resources\WallpapersResource;
 
 class CategoriesController extends Controller
 {
     public function index()
     {
-        $companies = Categories::with(['wallpapers']);
-        return CategoriesResource::collection($companies->paginate(50))->response();
-        /*
+        //$companies = Categories::with(['wallpapers']);
+        //return CategoriesResource::collection($companies->paginate(50))->response();
+
         $limit = 10;
-        $categories = CategoriesResource::collection(Categories::paginate($limit));
+        $categories =  CategoriesResource::collection(Categories::paginate($limit));
         return [
             "info" => [
                 "total" => $categories->total(),
@@ -25,7 +26,6 @@ class CategoriesController extends Controller
             ],
             "results" => $categories,
         ];
-        */
     }
 
     public function show($id)
@@ -39,6 +39,7 @@ class CategoriesController extends Controller
             "created_at" => $category->created_at,
             "updated_at" => $category->updated_at,
             "deleted_at" => $category->deleted_at,
+            //"wallpaperts" => WallpapersResource::collection($category->wallpapers),
         ];
     }
 
@@ -54,6 +55,7 @@ class CategoriesController extends Controller
             "created_at" => $category->created_at,
             "updated_at" => $category->updated_at,
             "deleted_at" => $category->deleted_at,
+            //"wallpaperts" => WallpapersResource::collection($category->wallpapers),
         ];
     }
 
@@ -69,6 +71,7 @@ class CategoriesController extends Controller
             "created_at" => $category->created_at,
             "updated_at" => $category->updated_at,
             "deleted_at" => $category->deleted_at,
+            //"wallpaperts" => WallpapersResource::collection($category->wallpapers),
         ];
     }
 

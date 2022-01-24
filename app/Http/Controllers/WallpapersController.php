@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Wallpapers;
 use App\Http\Requests\StoreWallpapersRequest;
 use App\Http\Requests\UpdateWallpapersRequest;
+use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\WallpapersResource;
 
 class WallpapersController extends Controller
@@ -35,10 +36,10 @@ class WallpapersController extends Controller
             "wallpaper_tags" => $wallpaper->wallpaper_tags,
             "wallpaper_colors" => $wallpaper->wallpaper_colors,
             "wallpaper_status" => $wallpaper->wallpaper_status,
-            "category_id" => $wallpaper->category_id,
             "created_at" => $wallpaper->created_at,
             "updated_at" => $wallpaper->updated_at,
             "deleted_at" => $wallpaper->deleted_at,
+            "category" => new CategoriesResource($wallpaper->category),
         ];
     }
 
@@ -54,10 +55,10 @@ class WallpapersController extends Controller
             "wallpaper_tags" => $wallpaper->wallpaper_tags,
             "wallpaper_colors" => $wallpaper->wallpaper_colors,
             "wallpaper_status" => $wallpaper->wallpaper_status,
-            "category_id" => $wallpaper->category_id,
             "created_at" => $wallpaper->created_at,
             "updated_at" => $wallpaper->updated_at,
             "deleted_at" => $wallpaper->deleted_at,
+            "category" => new CategoriesResource($wallpaper->category),
         ];
     }
 
@@ -73,10 +74,10 @@ class WallpapersController extends Controller
             "wallpaper_tags" => $wallpaper->wallpaper_tags,
             "wallpaper_colors" => $wallpaper->wallpaper_colors,
             "wallpaper_status" => $wallpaper->wallpaper_status,
-            "category_id" => $wallpaper->category_id,
             "created_at" => $wallpaper->created_at,
             "updated_at" => $wallpaper->updated_at,
             "deleted_at" => $wallpaper->deleted_at,
+            "category" => new CategoriesResource($wallpaper->category),
         ];
     }
 

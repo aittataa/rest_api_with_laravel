@@ -17,11 +17,10 @@ class WallpapersResource extends JsonResource
             "wallpaper_tags" => $this->wallpaper_tags,
             "wallpaper_colors" => $this->wallpaper_colors,
             "wallpaper_status" => $this->wallpaper_status,
-            //"category_id" => $this->category_id,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
             "deleted_at" => $this->deleted_at,
-            "category"=> new CategoriesResource($category),
+            "category" => new CategoriesResource($this->category),
         ];
     }
 }
