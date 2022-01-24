@@ -11,6 +11,9 @@ class CategoriesController extends Controller
 {
     public function index()
     {
+        $companies = Categories::with(['wallpapers']);
+        return CategoriesResource::collection($companies->paginate(50))->response();
+        /*
         $limit = 10;
         $categories = CategoriesResource::collection(Categories::paginate($limit));
         return [
@@ -22,6 +25,7 @@ class CategoriesController extends Controller
             ],
             "results" => $categories,
         ];
+        */
     }
 
     public function show($id)

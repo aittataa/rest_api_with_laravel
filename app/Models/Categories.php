@@ -15,4 +15,9 @@ class Categories extends Model
         "category_image",
         "category_status"
     ];
+
+    public function wallpapers()
+    {
+        return $this->hasMany(Wallpapers::class, "category_id");
+    }
 }
