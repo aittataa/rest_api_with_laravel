@@ -16,7 +16,7 @@ class CreateWallpapersTable extends Migration
     {
         Schema::create('wallpapers', function (Blueprint $table) {
             $table->id();
-            $table->string("wallpaper_image", 250);
+            $table->text("wallpaper_image");
             $table->tinyInteger("wallpaper_featured")->default(0);
             $table->string("wallpaper_type", 25)->default("Portrait");
             $table->text("wallpaper_tags")->default("Wallpaper");

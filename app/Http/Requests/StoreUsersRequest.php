@@ -8,11 +8,17 @@ class StoreUsersRequest extends FormRequest
 {
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     public function rules()
     {
-        return [];
+        return [
+            'user_name' => "required",
+            'user_username' => "required",
+            'user_email' => "required",
+            'user_password' => "required",
+            'user_phone' => "required",
+        ];
     }
 }

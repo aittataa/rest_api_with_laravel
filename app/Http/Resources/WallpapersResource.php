@@ -8,7 +8,6 @@ class WallpapersResource extends JsonResource
 {
     public function toArray($request)
     {
-        $category = $this->whenLoaded('category');
         return [
             "id" => $this->id,
             "wallpaper_image" => $this->wallpaper_image,
