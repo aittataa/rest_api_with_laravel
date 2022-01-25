@@ -24,7 +24,8 @@ class UpdateColorsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "color_name",
+            "color_code",
         ];
     }
 }

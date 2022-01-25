@@ -5,61 +5,73 @@ namespace App\Http\Controllers;
 use App\Models\Colors;
 use App\Http\Requests\StoreColorsRequest;
 use App\Http\Requests\UpdateColorsRequest;
+use App\Http\Resources\ColorsResource;
 
 class ColorsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $limit = 10;
+        $colors =  ColorsResource::collection(Colors::paginate($limit));
+        return [
+            "info" => [
+                "total" => $colors->total(),
+                "pages" => $colors->lastPage(),
+                "prev" => $colors->previousPageUrl(),
+                "next" => $colors->nextPageUrl(),
+            ],
+            "results" => $colors,
+        ];
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreColorsRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function show($id)
+    {
+        $color = Colors::findOrFail($id);
+        return [
+            "id" => $color->id,
+            "color_name" => $color->color_name,
+            "color_code" => $color->color_code,
+            "color_status" => $color->color_status,
+            "created_at" => $color->created_at,
+            "updated_at" => $color->updated_at,
+            "deleted_at" => $color->deleted_at,
+        ];
+    }
+
     public function store(StoreColorsRequest $request)
     {
-        //
+        $color = Colors::create($request->all());
+        $color = Colors::findOrFail($color->id);
+        return [
+            "id" => $color->id,
+            "color_name" => $color->color_name,
+            "color_code" => $color->color_code,
+            "color_status" => $color->color_status,
+            "created_at" => $color->created_at,
+            "updated_at" => $color->updated_at,
+            "deleted_at" => $color->deleted_at,
+        ];
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Colors  $colors
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Colors $colors)
+    public function update(UpdateColorsRequest $request, $id)
     {
-        //
+        $color = Colors::findOrFail($id);
+        $color->update($request->all());
+        return [
+            "id" => $color->id,
+            "color_name" => $color->color_name,
+            "color_code" => $color->color_code,
+            "color_status" => $color->color_status,
+            "created_at" => $color->created_at,
+            "updated_at" => $color->updated_at,
+            "deleted_at" => $color->deleted_at,
+        ];
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateColorsRequest  $request
-     * @param  \App\Models\Colors  $colors
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateColorsRequest $request, Colors $colors)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Colors  $colors
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Colors $colors)
-    {
-        //
+        $color = Colors::findOrFail($id);
+        $color->delete();
+        return ["message" => "Successfully Deleted"];
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ColorsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WallpapersController;
 use Illuminate\Http\Request;
@@ -29,6 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix("v1")->group(function () {
     Route::apiResource("users", UsersController::class);
     Route::apiResource("categories", CategoriesController::class);
+    Route::apiResource("colors", ColorsController::class);
     Route::apiResource("wallpapers", WallpapersController::class);
 });
 
