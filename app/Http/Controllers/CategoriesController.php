@@ -36,31 +36,24 @@ class CategoriesController extends Controller
             "created_at" => $category->created_at,
             "updated_at" => $category->updated_at,
             "deleted_at" => $category->deleted_at,
-            //"wallpaperts" => WallpapersResource::collection($category->wallpapers),
+            "wallpaperts" => WallpapersResource::collection($category->wallpapers),
+
         ];
     }
 
     public function store(StoreCategoriesRequest $request)
     {
-        $category = Categories::where("category_name", $request->category_name);
-
+        $category = Categories::create($request->all());
+        $category = Categories::findOrFail($category->id);
         return [
-            "name" => $category->category_name,
+            "id" => $category->id,
+            "category_name" => $category->category_name,
+            "category_image" => $category->category_image,
+            "category_status" => $category->category_status,
+            "created_at" => $category->created_at,
+            "updated_at" => $category->updated_at,
+            "deleted_at" => $category->deleted_at,
         ];
-
-
-        // $category = Categories::create($request->all());
-        // $category = Categories::findOrFail($category->id);
-        // return [
-        //     "id" => $category->id,
-        //     "category_name" => $category->category_name,
-        //     "category_image" => $category->category_image,
-        //     "category_status" => $category->category_status,
-        //     "created_at" => $category->created_at,
-        //     "updated_at" => $category->updated_at,
-        //     "deleted_at" => $category->deleted_at,
-        //     //"wallpaperts" => WallpapersResource::collection($category->wallpapers),
-        // ];
     }
 
     public function update(UpdateCategoriesRequest $request, $id)
@@ -75,7 +68,6 @@ class CategoriesController extends Controller
             "created_at" => $category->created_at,
             "updated_at" => $category->updated_at,
             "deleted_at" => $category->deleted_at,
-            //"wallpaperts" => WallpapersResource::collection($category->wallpapers),
         ];
     }
 
