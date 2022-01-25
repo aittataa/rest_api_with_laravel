@@ -13,6 +13,9 @@ class StoreFavoritesRequest extends FormRequest
 
     public function rules()
     {
-        return [];
+        return [
+            "user_id",
+            "wallpaper_id",
+        ];
     }
 }

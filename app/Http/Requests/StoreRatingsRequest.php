@@ -4,11 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateFavoritesRequest extends FormRequest
+class StoreRatingsRequest extends FormRequest
 {
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     public function rules()
