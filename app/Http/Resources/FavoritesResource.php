@@ -14,8 +14,8 @@ class FavoritesResource extends JsonResource
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
             "deleted_at" => $this->deleted_at,
-            "user" => new UsersResource($this->user),
-            "wallpaper" => new WallpapersResource($this->wallpaper),
+            "user" => new UsersResource($this->whenLoaded("user")),
+            "wallpaper" => new WallpapersResource($this->whenLoaded("wallpaper")),
         ];
     }
 }

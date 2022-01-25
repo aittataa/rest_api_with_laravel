@@ -43,7 +43,7 @@ class FavoritesController extends Controller
     public function store(StoreFavoritesRequest $request)
     {
         $favorite = favorites::create($request->all());
-        $favorite = favorites::findOrFail($favorite->id);
+        $favorite  = favorites::findOrFail($favorite->id);
         return  [
             "id" => $favorite->id,
             "favorite_status" => $favorite->favorite_status,
