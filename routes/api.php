@@ -15,8 +15,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::prefix("v1")->group(function () {});
-Route::apiResource("authentication", AuthenticationController::class);
 Route::apiResource("users", UsersController::class);
 Route::apiResource("categories", CategoriesController::class);
 Route::apiResource("colors", ColorsController::class);
